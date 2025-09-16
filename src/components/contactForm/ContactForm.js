@@ -1,5 +1,16 @@
 import React from "react";
 
+function formatPhoneNumber(value) {
+  const digits = value.replace(/\D/g, '');
+  const match = digits.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
+  if(!match) return '';
+  let formated = '';
+  if(match[1]) formated += match[1];
+  if(match[2]) formated += '-' + match[2];
+  if(match[3]) formated += '-' + match[3];
+  return formated;
+}
+
 export const ContactForm = ({
   name,
   setName,
@@ -23,8 +34,7 @@ export const ContactForm = ({
        type="tel"
         placeholder="Phone"
         value={phone} 
-        onChange={e => setPhone(e.target.value)}
-        pattern="[1-9][0-9]{2}-[1-9][0-9]{2}-[0-9]{4}"
+        onChange={e => setPhone(formatPhoneNumber(e.target.value))}
         title="Format: 123-456-7890"
         />
 
